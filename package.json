@@ -1,0 +1,40 @@
+{
+  "name": "sf-chain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blockchain.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "start": "node ./app",
+    "dev": "nodemon ./app",
+    "blockchain-dev": "nodemon blockchain-test.js",
+    "wallet-dev": "nodemon wallet-test.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/15Dkatz/sf-chain.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/15Dkatz/sf-chain/issues"
+  },
+  "homepage": "https://github.com/15Dkatz/sf-chain#readme",
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "crypto-js": "^3.1.9-1",
+    "elliptic": "^6.4.0",
+    "express": "^4.16.2",
+    "jest": "^22.1.4",
+    "minimalistic-crypto-utils": "^1.0.1",
+    "uuid": "^3.2.1",
+    "ws": "^4.0.0"
+  }
+}
