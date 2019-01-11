@@ -33,6 +33,7 @@
     "elliptic": "^6.4.0",
     "express": "^4.16.2",
     "jest": "^22.1.4",
+    "jshint": "^2.9.7",
     "minimalistic-crypto-utils": "^1.0.1",
     "uuid": "^3.2.1",
     "ws": "^4.0.0"

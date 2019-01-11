@@ -17,6 +17,7 @@
  */
 const ChainUtil = require('../chain-util');
 const Transaction = require('./transaction');
+const Property = new require('../wallet/property');
 const { INITIAL_BALANCE } = require('../config');
 
 class Wallet {
@@ -53,6 +54,35 @@ class Wallet {
 
     return transaction;
   }
+
+  createTrans(recipient, amount, propid,blockchain, transactionPool) {
+
+    this.balance = this.calculateBalance(blockchain);
+
+    if (amount > this.balance) {
+      console.log(`Amount: ${amount}, exceeds current balance: ${this.balance}. You cannot buy this property`);
+      return;
+    } else{
+      console.log(`Current balance: ${this.balance} is sufficient to buy this property!`);
+    }
+
+    
+    let transaction = transactionPool.existingTransaction(this.publicKey);
+
+    if (transaction) {
+      transaction.update(this, recipient, amount);
+    } else {
+      transaction = Transaction.newTransaction(this, recipient, amount);
+      transactionPool.updateOrAddTransaction(transaction);
+    }
+
+    return transaction;
+
+ 
+    }
+
+
+  
 
   /**
    * The balance is the sum total of output amounts matching their public key

@@ -1,9 +1,11 @@
 // store the unconfirmed transactions
 const Transaction = require('../wallet/transaction');
+const PropertyPool = require('../wallet/propertypool');
 
 class TransactionPool {
   constructor() {
     this.transactions = [];
+    this.properties =[];
   }
 
   // addTransaction(transaction) {
@@ -19,6 +21,13 @@ class TransactionPool {
     } else {
       this.transactions.push(transaction);
     }
+  }
+
+  updateOrAddProperty(property) {
+    
+      this.properties.push(property);
+      console.log("added to pool!")
+    
   }
 
   // check if a transaction has already been performed by this address
@@ -48,6 +57,39 @@ class TransactionPool {
     });
     // return validTransactions;
   }
+
+   static propChange(propid, address){
+
+    let propertyWithId = this.properties.find(t => t.id === propid);
+
+    
+      this.properties[this.properties.indexOf(propertyWithId)].address = address;
+      this.properties[this.properties.indexOf(propertyWithId)].status = "sold";
+
+      console.log("Propert Status Changed Successfully!")
+
+   
+  }
+
+   static propCheck(propid){
+
+    console.log("In propcheck, properties are:-",this.properties);
+
+    let propertyWithId = this.properties.find(t => t.id === propid);
+
+  console.log("Property found in preprty check",propertyWithId);
+
+      if(this.properties[this.properties.indexOf(propertyWithId)].status ==="sale"){
+  console.log("This property is for sale. Starting Process");
+   return true;
+}
+else{
+  console.log("This property is not for sale!");
+  return false;
+}
+       
+  }
+
 
   clear() {
     this.transactions = [];

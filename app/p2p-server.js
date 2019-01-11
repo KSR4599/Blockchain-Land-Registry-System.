@@ -13,7 +13,8 @@ const peers = process.env.PEERS ? process.env.PEERS.split(',') : [];
 const MESSAGE_TYPES = {
   chain: 'CHAIN',
   transaction: 'TRANSACTION',
-  clear_transactions: 'CLEAR_TRANSACTIONS'
+  clear_transactions: 'CLEAR_TRANSACTIONS',
+  property:'PROPERTY'
 };
 
 class P2pServer {
@@ -53,6 +54,11 @@ class P2pServer {
     socket.send(JSON.stringify({ type: MESSAGE_TYPES.transaction, transaction }));
   }
 
+  sendProperty(socket, property) {
+    socket.send(JSON.stringify({ type: MESSAGE_TYPES.property, property }));
+  }
+
+
   messageHandler(socket) {
     socket.on('message', message => {
       const data = JSON.parse(message);
@@ -63,11 +69,19 @@ class P2pServer {
           // the built-in functionality will actually replace the chain securely
           this.blockchain.replaceChain(data.chain);
           break;
+
         case MESSAGE_TYPES.transaction:
           console.log('New transaction', data.transaction);
           // Create a transaction with the wallet to actually update it
           this.transactionPool.updateOrAddTransaction(data.transaction);
           break;
+
+          case MESSAGE_TYPES.property:
+          console.log('New property', data.property);
+          // Create a transaction with the wallet to actually update it
+          this.transactionPool.updateOrAddProperty(data.property);
+          break;
+          
         case MESSAGE_TYPES.clear_transactions:
           this.transactionPool.clear();
           break;
@@ -81,6 +95,11 @@ class P2pServer {
 
   broadcastTransaction(transaction) {
     this.sockets.forEach(socket => this.sendTransaction(socket, transaction));
+  }
+
+  
+  broadcastProperty(property) {
+    this.sockets.forEach(socket => this.sendProperty(socket, property));
   }
 
   broadcastClearTransactions() {

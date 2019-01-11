@@ -20,6 +20,10 @@ const app = express();
 const p2pServer = new P2pServer(bc, tp, wallet);
 const miner = new Miner(bc, tp, wallet, p2pServer);
 
+const Property = new require('../wallet/property');
+const PropertyPool = require('../wallet/propertypool');
+
+
 app.use(bodyParser.json());
 
 app.get('/blocks', (req, res) => {
@@ -49,6 +53,10 @@ app.get('/transactions', (req, res) => {
   res.json(tp.transactions);
 });
 
+app.get('/showprops',(req,res) =>{
+  res.json(tp.properties);
+})
+
 app.post('/transact', (req, res) => {
   const { recipient, amount } = req.body;
   const transaction = wallet.createTransaction(recipient, amount, bc, tp);
@@ -58,6 +66,54 @@ app.post('/transact', (req, res) => {
 
   res.redirect('/transactions');
 });
+
+app.get('/addprop',(req, res)=> {
+  const { area, price, location } = req.body;
+  var property = Property.addProperty(wallet.publicKey, area, price, location,tp);
+  p2pServer.broadcastProperty(property);
+  res.json({ Property : property });
+})
+
+
+app.post('/buy', (req, res) => {
+  const { recipient, amount, propid } = req.body;
+  const transaction = wallet.createTransaction(recipient, amount, bc, tp);
+
+  let propp = tp.properties.find(t => t.id === propid);
+
+  console.log("Property found in property check",propp);
+  console.log("########");
+  console.log("Property Status",propp.status);
+
+  if(propp.price===amount){
+    console.log("Amount matched!");
+    if(propp.status ==="sale"){
+      console.log("This property is for sale. Starting Process");
+  
+      propp.address = wallet.publicKey;
+      propp.status = "sold";
+  
+      console.log("Propert Status Changed Successfully!")
+  
+      p2pServer.broadcastTransaction(transaction);
+      p2pServer.broadcastProperty(propp);
+      res.redirect('/transactions');
+    }
+    else{
+      console.log("This property is not for sale!");
+      res.json({Error: "This property is not for sale"})
+  
+    }
+  } else{
+    console.log("Amount not matching! Check amount once again!");
+    res.json({Error: "Check amount one again!"})
+  }
+
+  
+
+});
+
+
 
 app.get('/public-key', (req, res) => {
   res.json({ publicKey: wallet.publicKey });
@@ -69,6 +125,13 @@ app.get('/peers', (req, res) => {
   // });
   res.json({ peers: p2pServer.sockets.length });
 });
+
+
+
+app.get('/test',(req,res) => {
+  var x = Property.testfunc();
+  res.json({ Property : x })
+})
 
 // app.post('/addPeer');
 
