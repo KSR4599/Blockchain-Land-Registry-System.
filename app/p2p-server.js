@@ -14,7 +14,8 @@ const MESSAGE_TYPES = {
   chain: 'CHAIN',
   transaction: 'TRANSACTION',
   clear_transactions: 'CLEAR_TRANSACTIONS',
-  property:'PROPERTY'
+  property:'PROPERTY',
+  propp : 'PROPP'
 };
 
 class P2pServer {
@@ -58,6 +59,10 @@ class P2pServer {
     socket.send(JSON.stringify({ type: MESSAGE_TYPES.property, property }));
   }
 
+  sendProperty1(socket, property) {
+    socket.send(JSON.stringify({ type: MESSAGE_TYPES.propp, property }));
+  }
+
 
   messageHandler(socket) {
     socket.on('message', message => {
@@ -79,7 +84,13 @@ class P2pServer {
           case MESSAGE_TYPES.property:
           console.log('New property', data.property);
           // Create a transaction with the wallet to actually update it
-          this.transactionPool.updateOrAddProperty(data.property);
+          this.transactionPool.addProperty(data.property);
+          break;
+
+          case MESSAGE_TYPES.propp:
+          console.log('New property', data.property);
+          // Create a transaction with the wallet to actually update it
+          this.transactionPool.updateProperty(data.property);
           break;
           
         case MESSAGE_TYPES.clear_transactions:
@@ -100,6 +111,10 @@ class P2pServer {
   
   broadcastProperty(property) {
     this.sockets.forEach(socket => this.sendProperty(socket, property));
+  }
+
+  updateProperty(property) {
+    this.sockets.forEach(socket => this.sendProperty1(socket, property));
   }
 
   broadcastClearTransactions() {

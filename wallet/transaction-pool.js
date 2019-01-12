@@ -23,12 +23,24 @@ class TransactionPool {
     }
   }
 
-  updateOrAddProperty(property) {
+ addProperty(property) {
     
       this.properties.push(property);
-      console.log("added to pool!")
+      console.log("Property Added to pool!")
     
   }
+
+  updateProperty(property) {
+    
+   console.log("Updating propety sale details to other parties")
+    let proppp = this.properties.find(t => t.id === property.id);
+
+    if (proppp) {
+      this.properties[this.properties.indexOf(proppp)].status = "sold";
+    } 
+    console.log('Property updated in other pools as well!');
+  
+}
 
   // check if a transaction has already been performed by this address
   existingTransaction(address) {

@@ -40,7 +40,7 @@ class Wallet {
     if (amount > this.balance) {
       console.log(`Amount: ${amount}, exceeds current balance: ${this.balance}`);
       return;
-    }
+    } 
 
     // if a transaction in the pool already has this input, then add this transaction to its outputs
     let transaction = transactionPool.existingTransaction(this.publicKey);
@@ -66,7 +66,7 @@ class Wallet {
       console.log(`Current balance: ${this.balance} is sufficient to buy this property!`);
     }
 
-    
+
     let transaction = transactionPool.existingTransaction(this.publicKey);
 
     if (transaction) {
@@ -100,6 +100,8 @@ class Wallet {
     const walletInputTs = transactions
       .filter(transaction => transaction.input.address === this.publicKey);
 
+      console.log("THE TRANSACTIONS OF THIS WALLET ARE:",walletInputTs);
+
     // add all currency they have received after their recent transaction,
     // or the default 0
     let startTime = 0;
@@ -108,9 +110,14 @@ class Wallet {
       const recentInputT = walletInputTs.reduce(
         (prev, current) => prev.input.timestamp > current.input.timestamp ? prev : current
       );
-      startTime = recentInputT.input.timestamp;
+     
+      console.log("THE RECENT INPUT T IS:",recentInputT);
+
       balance = recentInputT.outputs.find(output => output.address === this.publicKey).amount;
+      startTime = recentInputT.input.timestamp;
     }
+
+    console.log("THE BALANCE IS:", balance);
 
     transactions.forEach(transaction => {
       if (transaction.input.timestamp > startTime) {
@@ -121,6 +128,8 @@ class Wallet {
         });
       }
     });
+
+    console.log("THE BALANCE IS:",balance);
 
     return balance;
   }

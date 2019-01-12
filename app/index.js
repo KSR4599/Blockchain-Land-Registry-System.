@@ -60,32 +60,19 @@ app.get('/showprops',(req,res) =>{
 app.post('/transact', (req, res) => {
   const { recipient, amount } = req.body;
   const transaction = wallet.createTransaction(recipient, amount, bc, tp);
-
-  // store transactions on the block itself.
   p2pServer.broadcastTransaction(transaction);
 
   res.redirect('/transactions');
 });
 
-app.get('/addprop',(req, res)=> {
-  const { area, price, location } = req.body;
-  var property = Property.addProperty(wallet.publicKey, area, price, location,tp);
-  p2pServer.broadcastProperty(property);
-  res.json({ Property : property });
-})
-
 
 app.post('/buy', (req, res) => {
   const { recipient, amount, propid } = req.body;
-  const transaction = wallet.createTransaction(recipient, amount, bc, tp);
-
   let propp = tp.properties.find(t => t.id === propid);
 
   console.log("Property found in property check",propp);
-  console.log("########");
-  console.log("Property Status",propp.status);
 
-  if(propp.price===amount){
+  if(propp.price==amount){
     console.log("Amount matched!");
     if(propp.status ==="sale"){
       console.log("This property is for sale. Starting Process");
@@ -95,8 +82,9 @@ app.post('/buy', (req, res) => {
   
       console.log("Propert Status Changed Successfully!")
   
+      const transaction = wallet.createTransaction(recipient, amount, bc, tp);
       p2pServer.broadcastTransaction(transaction);
-      p2pServer.broadcastProperty(propp);
+      p2pServer.updateProperty(propp);
       res.redirect('/transactions');
     }
     else{
@@ -108,11 +96,15 @@ app.post('/buy', (req, res) => {
     console.log("Amount not matching! Check amount once again!");
     res.json({Error: "Check amount one again!"})
   }
-
-  
-
 });
 
+
+app.get('/addprop',(req, res)=> {
+  const { area, price, location } = req.body;
+  var property = Property.addProperty(wallet.publicKey, area, price, location,tp);
+  p2pServer.broadcastProperty(property);
+  res.json({ Property : property });
+})
 
 
 app.get('/public-key', (req, res) => {

@@ -29,7 +29,7 @@ class Property{
         
         properties.push(property);
 
-        transactionPool.updateOrAddProperty(property);
+        transactionPool.addProperty(property);
         
        
 
