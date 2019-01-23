@@ -1,20 +1,4 @@
-/*
-  WALLET: Wallets store the private key and public key address.
 
-  PRIVATE KEY Store the key by writing it to a file? Or just save it in the class.
-  Writing to a file seems good if you want the user to explicitly see the key. But it may be unnecessary. Also very unsafe.
-  PUBLIC KEY: The public key can then be derived from the private key.
-  BALANCE: When own coins, what you have is a list of unspent transactions. Get the sum of that amount.
-  TRANSACTIONS: If A wants to send 40 of his/her 50 coins to B, then 40 is sent to A and 10 is sent to B.
-
-  Two outputs are created for the receiver, and one for the leftover amount of the sender.
-  The sender should only have to provide the address of the receiver, and the amount to send.
-
-  Want to support the ability to send coins from one address the other
-
-  Balances are recalculated at the start of every transaction.
-  A balance can always be calculated with the calculateBalance functino.
- */
 const ChainUtil = require('../chain-util');
 const Transaction = require('./transaction');
 const Property = new require('../wallet/property');
@@ -100,7 +84,6 @@ class Wallet {
     const walletInputTs = transactions
       .filter(transaction => transaction.input.address === this.publicKey);
 
-      console.log("THE TRANSACTIONS OF THIS WALLET ARE:",walletInputTs);
 
     // add all currency they have received after their recent transaction,
     // or the default 0
@@ -111,13 +94,12 @@ class Wallet {
         (prev, current) => prev.input.timestamp > current.input.timestamp ? prev : current
       );
      
-      console.log("THE RECENT INPUT T IS:",recentInputT);
 
       balance = recentInputT.outputs.find(output => output.address === this.publicKey).amount;
       startTime = recentInputT.input.timestamp;
     }
 
-    console.log("THE BALANCE IS:", balance);
+
 
     transactions.forEach(transaction => {
       if (transaction.input.timestamp > startTime) {
@@ -129,7 +111,6 @@ class Wallet {
       }
     });
 
-    console.log("THE BALANCE IS:",balance);
 
     return balance;
   }

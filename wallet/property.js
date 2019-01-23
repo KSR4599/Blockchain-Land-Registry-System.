@@ -1,4 +1,4 @@
-const PropertyPool = require('../wallet/propertypool');
+
 const TransactionPool = require('./transaction-pool');
 
 const ChainUtil = require('../chain-util');
@@ -39,11 +39,7 @@ class Property{
 
     }
 
-      static testfunc(){
-          var c = PropertyPool.xx;
-          return c;
-      }
-
+    
 }
 
 
