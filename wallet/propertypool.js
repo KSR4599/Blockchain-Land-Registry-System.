@@ -1,9 +1,13 @@
 
     var propies =[];
+
+    var propies1 =[];
+    
 class PropertyPool {
 
     constructor() {
       this.properties = [];
+      this.properties1 =[];
     }
 
 

@@ -19,6 +19,8 @@ class Miner {
     const validTransactions = this.transactionPool.validTransactions();
     // include a reward transaction for the miner
     validTransactions.push(Transaction.rewardTransaction(this.wallet,Wallet.blockchainWallet()));
+
+    console.log("VALID TRANSACTIONS ::", validTransactions);
     // create a block consisting of the valid transactions
     const block = this.blockchain.addBlock(validTransactions);
     // synchronize chains in the peer-to-peer server

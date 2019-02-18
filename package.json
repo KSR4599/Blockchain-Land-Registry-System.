@@ -5,7 +5,7 @@
   "main": "blockchain.js",
   "scripts": {
     "test": "jest --watchAll",
-    "start": "node ./app",
+    "start": "nodemon ./app",
     "dev": "nodemon ./app",
     "blockchain-dev": "nodemon blockchain-test.js",
     "wallet-dev": "nodemon wallet-test.js"
@@ -25,17 +25,22 @@
   },
   "homepage": "https://github.com/15Dkatz/sf-chain#readme",
   "devDependencies": {
-    "nodemon": "^1.14.11"
+    "nodemon": "^1.18.10"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
+    "async": "^2.6.1",
+    "body-parser": "^1.18.3",
     "crypto-js": "^3.1.9-1",
-    "elliptic": "^6.4.0",
-    "express": "^4.16.2",
-    "jest": "^22.1.4",
-    "jshint": "^2.9.7",
+    "elliptic": "^6.4.1",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.1.0",
+    "jest": "^22.4.4",
+    "jshint": "^2.10.1",
     "minimalistic-crypto-utils": "^1.0.1",
-    "uuid": "^3.2.1",
-    "ws": "^4.0.0"
+    "path": "^0.12.7",
+    "shelljs": "^0.8.3",
+    "uuid": "^3.3.2",
+    "ws": "^4.1.0"
   }
 }

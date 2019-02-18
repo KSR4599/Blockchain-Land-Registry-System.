@@ -1,8 +1,10 @@
 
 const TransactionPool = require('./transaction-pool');
 
+
 const ChainUtil = require('../chain-util');
 var properties = [];
+var properties1 = [];
 
 var count = 0;
 class Property{
@@ -18,7 +20,11 @@ class Property{
       this.status=null;
     }
 
-    static addProperty(walletaddress,area,price,location,transactionPool){
+    
+
+
+      
+      static addProperty(walletaddress,area,price,location,transactionPool){
         var property = new this();
         property.id = ChainUtil.id();
         property.address=walletaddress;
@@ -26,20 +32,19 @@ class Property{
         property.price=price;
         property.location=location;
         property.status= "sale"
-        
+
+
+
         properties.push(property);
 
         transactionPool.addProperty(property);
-        
-       
+   
 
-        console.log('New property added to the properties');
+        console.log("Property added!");
 
-        return property;
+          return property;
 
     }
-
-    
 }
 
 

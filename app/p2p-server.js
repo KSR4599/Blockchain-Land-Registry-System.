@@ -88,9 +88,9 @@ class P2pServer {
           break;
 
           case MESSAGE_TYPES.propp:
-          console.log('New property', data.property);
+          console.log('New property  ::', data.property);
           // Create a transaction with the wallet to actually update it
-          this.transactionPool.updateProperty(data.property);
+          this.transactionPool.updateProperty(data.property, data.property.address);
           break;
           
         case MESSAGE_TYPES.clear_transactions:

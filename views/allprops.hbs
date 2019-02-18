@@ -1,0 +1,48 @@
+<html>
+<head>
+
+</head>
+<body >
+
+<div align ="center">
+<br><br>
+
+<br><br>
+
+{{#each allprops}}
+{{#ifCond this.status "sold"}}
+<div class="card text-white bg-dark mb-3" style="max-width: 60rem;">
+  <div class="card-header">Property :</div>
+  <div class="card-body">
+    <h3>Property ID :</h3><h4 style ="color:rgb(87, 147, 236)" class="card-title">{{{this.id}}}</h4>
+    <h3>Area :</h3><h4 style ="color:rgb(87, 147, 236)" class="card-title">{{{this.area}}}</h4>
+   <h3>Price : </h3><h4 style ="color:rgb(87, 147, 236)" class="card-title">{{{this.price}}}</h4>
+   <h3>Address : </h3><h4 style ="color:rgb(87, 147, 236)" class="card-title">{{{this.address}}}</h4>
+   <h3>Location :</h3> <h4 style ="color:rgb(87, 147, 236)" class="card-title">{{{this.location}}}</h4>
+    <h3>Status :</h3><h4 style ="color:rgb(87, 147, 236)" class="card-title">{{{this.status}}}</h4>
+  </div>
+</div>
+{{else}}
+<div class="card text-white bg-success mb-3" style="max-width: 60rem;">
+  <div class="card-header">Property :</div>
+  <div class="card-body">
+    <h3>Property ID :</h3><h4 style = "color:rgb(88, 89, 90)" class="card-title">{{{this.id}}}</h4>
+    <h3>Area :</h3><h4 style ="color:rgb(88, 89, 90)" class="card-title">{{{this.area}}}</h4>
+   <h3>Price : </h3><h4 style = "color:rgb(88, 89, 90)" class="card-title">{{{this.price}}}</h4>
+   <h3>Address : </h3><h4 style = "color:rgb(88, 89, 90)" class="card-title">{{{this.address}}}</h4>
+   <h3>Location :</h3> <h4 style ="color:rgb(88, 89, 90)" class="card-title">{{{this.location}}}</h4>
+    <h3>Status :</h3><h4 style ="color:rgb(88, 89, 90)"  class="card-title">{{{this.status}}}</h4>
+  </div>
+</div>
+{{/ifCond}}
+<br> <br>
+  {{/each}}
+
+<script>
+  (function (w,i,d,g,e,t,s) {w[d] = w[d]||[];t= i.createElement(g);
+    t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
+  })(window, document, '_gscq','script','//widgets.getsitecontrol.com/175777/script.js');
+</script>
+</body>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+<script src="js/a.js"></script>
+
+</head>
+<body >
+
+    <div align="center">
+
+<br>
+<h1 style ="color:rgb(14, 109, 96)">There are currently <span style="color:rgb(81, 211, 183)">{{peerslen}}</span> people connected!</h1>
+
+<br><br><br><br>
+<br><br><br><br>
+
+<h2 style="color:rgb(20, 77, 104)"> Connect to your respective peer number:</h2>
+
+{{#ifCond port 3001}}
+ <a href="http://localhost:3001/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-success active" id="b1">Connected to Peer 1</button>
+</a>
+{{else}}
+    <a href="http://localhost:3001/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-primary" id="b1">Connect to Peer 1</button>
+</a>
+{{/ifCond}}
+
+{{#ifCond port 3002}}
+ <a href="http://localhost:3002/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-success active" id="b1">Connected to Peer 2</button>
+</a>
+{{else}}
+    <a href="http://localhost:3002/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-primary" id="b1">Connect to Peer 2</button>
+</a>
+{{/ifCond}}
+
+{{#ifCond port 3003}}
+ <a href="http://localhost:3003/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-success active" id="b1">Connected to Peer 3</button>
+</a>
+{{else}}
+    <a href="http://localhost:3003/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-primary" id="b1">Connect to Peer 3</button>
+</a>
+{{/ifCond}}
+
+{{#ifCond port 3004}}
+ <a href="http://localhost:3004/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-success active" id="b1">Connected to Peer 4</button>
+</a>
+{{else}}
+    <a href="http://localhost:3004/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-primary" id="b1">Connect to Peer 4</button>
+</a>
+{{/ifCond}}
+
+{{#ifCond port 3005}}
+ <a href="http://localhost:3005/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-success active" id="b1">Connected to Peer 5</button>
+</a>
+{{else}}
+    <a href="http://localhost:3005/">
+<button style ="font-size: 25px;" type="button" class="btn btn-outline-primary" id="b1">Connect to Peer 5</button>
+</a>
+{{/ifCond}}
+
+
+
+<br><br><br><br><br><br><br><br>
+ <a href="/mine-transactions">
+<button style ="font-size: 45px;" type="button" class="btn btn-outline-warning" id="b1">Mine Transactions⛏</button>
+</a>
+<script>
+  (function (w,i,d,g,e,t,s) {w[d] = w[d]||[];t= i.createElement(g);
+    t.async=1;t.src=e;s=i.getElementsByTagName(g)[0];s.parentNode.insertBefore(t, s);
+  })(window, document, '_gscq','script','//widgets.getsitecontrol.com/175777/script.js');
+</script>
+</body>
+
+</html>

@@ -50,6 +50,7 @@ class Transaction {
   static transactionWithOutputs(senderWallet, outputs) {
     const transaction = new this();
     transaction.outputs.push(...outputs);
+    console.log("TRANSACTION WITH OUTPUTS :",transaction.outputs)
     Transaction.signTransaction(transaction, senderWallet);
 
     return transaction;
@@ -58,6 +59,7 @@ class Transaction {
   // sender is an entire wallet class
   // recipient is the public key of the recipient
   static newTransaction(senderWallet, recipient, amount) {
+    var i=0;
     if (amount > senderWallet.balance) {
       console.log(`Amount: ${amount} exceeds balance.`);
       return;
@@ -69,7 +71,7 @@ class Transaction {
     // TODO: add transaction fee
     return Transaction.transactionWithOutputs(senderWallet, [
       { amount: senderWallet.balance-amount, address: senderWallet.publicKey },
-      { amount, address: recipient }
+      { amount: amount*1, address: recipient }
     ]);
   }
 
